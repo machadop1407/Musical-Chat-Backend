@@ -1,0 +1,13 @@
+.matchWrapper {
+  border: 5px solid rgba(40, 40, 40, 0.8);
+  border-radius: 8px;
+  height: 100%;
+  padding: 10px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.matchWrapper h1 {
+  color: #f5f5f5;
+  font-size: 2vw;
+}
