@@ -1,8 +1,8 @@
 import React, { Component, useState } from "react";
-import "../Styles/Main.css";
+import "../../Styles/Main.css";
 
 import Spotify from "spotify-web-api-js";
-import Menu from "./Menu";
+import Menu from "../Menu/Menu";
 
 const spotifyWebApi = new Spotify();
 

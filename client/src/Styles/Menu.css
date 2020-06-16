@@ -1,8 +1,30 @@
+.row.menuPage {
+    padding-top: 50px;
+}
+
 .row.menuPage .col-sm-4 {
     height: 400px;
     justify-content: center;
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+
+.topTracksTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5f5f5;
+}
+
+.topTracksTitle h1 {
+    font-size: 2.5vw;
+}
+
+#fireEmoji {
+    max-width: 64px;
+    margin-left: 10px;
+    margin-bottom: 20px;
 }
 
 .col-sm-4 tbody {
@@ -22,6 +44,7 @@
     background-color: #0000;
     color: #f5f5f5;
     box-shadow: 1px 0px 1px black;
+    text-align: center;
 }
 
 .col-sm-4 #id {
