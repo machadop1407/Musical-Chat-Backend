@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "../../Styles/Main.css";
 
 import Spotify from "spotify-web-api-js";
@@ -25,16 +25,6 @@ const Main = () => {
   if (params.access_token) {
     spotifyWebApi.setAccessToken(params.access_token);
   }
-
-  // getAllFavorite = () => {
-  //   spotifyWebApi.getMyTopTracks()
-  //     .then((res)=> {
-  //       console.log(res)
-  //       this.setState({
-  //         // bestTracks: res
-  //       })
-  //     })
-  // }
 
   return (
     <div className="Main">
