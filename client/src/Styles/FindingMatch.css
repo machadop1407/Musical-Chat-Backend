@@ -18,14 +18,11 @@
 .matchWrapper input {
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 2px solid #f8f8f8;
+  border: 3px solid #f8f8f8;
   box-shadow: 1px 1px 3px #13bd64;
-
   text-align: center;
-
   height: 35px;
   width: 45%;
-
   font-weight: 800;
   color: #13bd64;
   background-color: transparent;

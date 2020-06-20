@@ -15,6 +15,16 @@ export default function Menu({ spotify }) {
     setUsername("Username");
     spotify.getMyTopTracks().then((res) => {
       setTopTracks(res.items);
+      spotify.getMe().then((response) => {
+        let postQuery = {
+          username: response.display_name,
+          spotifyId: response.id,
+          topTracks: res.items,
+        };
+
+        setUsername(response.display_name);
+        axios.post("http://192.168.100.3:7777/login", postQuery);
+      });
     });
 
     spotify
@@ -26,14 +36,6 @@ export default function Menu({ spotify }) {
       .catch(() => {
         setCurrentSong("Music Not Playing");
       });
-
-    spotify.getMe().then((res) => {
-      let postQuery = { username: res.display_name, spotifyId: res.id };
-      setUsername(res.display_name);
-      axios
-        .post("http://192.168.100.2:7777/login", postQuery)
-        .then(() => console.log("worked"));
-    });
   }, []);
 
   return (
@@ -46,7 +48,7 @@ export default function Menu({ spotify }) {
         </div>
         <div className="rightCol">
           <div className="findingMatch">
-            <FindingMatch spotify={spotify} />
+            <FindingMatch spotify={spotify} topTracks={topTracks} />
           </div>
           <div className="topTracks">
             <div className="topTracksTitle">
