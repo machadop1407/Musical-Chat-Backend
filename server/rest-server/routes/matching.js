@@ -9,7 +9,6 @@ router.post("/", (req, res) => {
   db.query(requestGenresQuery, id, (err, result) => {
     if (err) throw new Error();
 
-    console.log(result[0].genres);
     var matchByExactQuery =
       "SELECT * FROM users WHERE genres = ? AND NOT spotifyId = ?";
     db.query(matchByExactQuery, [result[0].genres, id], (err, matchResults) => {
