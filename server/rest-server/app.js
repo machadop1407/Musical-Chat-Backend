@@ -15,6 +15,8 @@ app.use(express.json());
 //Routes
 var loginRoute = require("./routes/login");
 app.use("/login", loginRoute);
+var matchingRoute = require("./routes/matching");
+app.use("/matching", matchingRoute);
 
 // Port
 const PORT = process.env.PORT || 7777;

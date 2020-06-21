@@ -10,27 +10,60 @@ export default function Menu({ spotify }) {
   const [topTracks, setTopTracks] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
   const [username, setUsername] = useState(null);
+  const [spotifyId, setId] = useState("");
 
   useEffect(() => {
     setUsername("Username");
     spotify.getMyTopTracks().then((res) => {
       setTopTracks(res.items);
+
       spotify.getMe().then((response) => {
-        let postQuery = {
-          username: response.display_name,
-          spotifyId: response.id,
-          topTracks: res.items,
+        // Setting Genres
+        var favoriteGenres = [];
+
+        Array.prototype.byCount = function () {
+          var itm,
+            a = [],
+            L = this.length,
+            o = {};
+          for (var i = 0; i < L; i++) {
+            itm = this[i];
+            if (!itm) continue;
+            if (o[itm] == undefined) o[itm] = 1;
+            else ++o[itm];
+          }
+          for (var p in o) a[a.length] = p;
+          return a.sort(function (a, b) {
+            return o[b] - o[a];
+          });
         };
 
-        setUsername(response.display_name);
-        axios.post("http://192.168.100.3:7777/login", postQuery);
+        res.items.map((track) => {
+          spotify.getArtist(track.artists[0].id).then((artist) => {
+            favoriteGenres.push(artist.genres[0]);
+          });
+        });
+
+        var timeout = setInterval(function () {
+          if (favoriteGenres.length != 0) {
+            let postQuery = {
+              username: response.display_name,
+              spotifyId: response.id,
+              genres: favoriteGenres.byCount()[0],
+            };
+
+            setUsername(response.display_name);
+            setId(response.id);
+            axios.post("http://192.168.100.3:7777/login", postQuery);
+            clearInterval(timeout);
+          }
+        }, 100);
       });
     });
 
     spotify
       .getMyCurrentPlaybackState()
       .then((res) => {
-        console.log(res.item.name);
         setCurrentSong(res.item.name);
       })
       .catch(() => {
@@ -48,7 +81,7 @@ export default function Menu({ spotify }) {
         </div>
         <div className="rightCol">
           <div className="findingMatch">
-            <FindingMatch spotify={spotify} topTracks={topTracks} />
+            <FindingMatch spotify={spotify} spotifyId={spotifyId} />
           </div>
           <div className="topTracks">
             <div className="topTracksTitle">

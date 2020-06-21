@@ -1,45 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "../../Styles/FindingMatch.css";
+import axios from "axios";
 
-export default function FindingMatch({ spotify, topTracks }) {
+export default function FindingMatch({ spotify, spotifyId }) {
   const [name, setName] = useState("");
 
   // useEffect(() => {}, []);
 
   const findMatch = () => {
-    var favoriteGenres = [];
-    var genres = [];
-
-    Array.prototype.byCount = function () {
-      var itm,
-        a = [],
-        L = this.length,
-        o = {};
-      for (var i = 0; i < L; i++) {
-        itm = this[i];
-        if (!itm) continue;
-        if (o[itm] == undefined) o[itm] = 1;
-        else ++o[itm];
-      }
-      for (var p in o) a[a.length] = p;
-      return a.sort(function (a, b) {
-        return o[b] - o[a];
+    axios
+      .post("http://192.168.100.3:7777/matching", { id: spotifyId })
+      .then((res) => {
+        if (res.message != undefined) {
+          console.log(res.data.message);
+        } else {
+          console.log(res);
+        }
       });
-    };
-
-    topTracks.map((track) => {
-      spotify.getArtist(track.artists[0].id).then((artist) => {
-        favoriteGenres.push(artist.genres[0]);
-      });
-    });
-
-    var timeout = setInterval(function () {
-      if (favoriteGenres.length != 0) {
-        console.log(favoriteGenres.byCount());
-        clearInterval(timeout);
-      }
-    }, 100);
-    // console.log(Object.(favoriteGenres));
   };
 
   return (
