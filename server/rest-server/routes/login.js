@@ -7,14 +7,15 @@ router.post("/", (req, res) => {
     "SELECT * FROM users WHERE spotifyId = ?",
     req.body.spotifyId,
     (err, row) => {
+      if (err) res.send({ error: err });
       if (row.length > 0) {
         var query = "UPDATE users SET genres = ? WHERE spotifyId = ?";
         db.query(
           query,
           [req.body.genres, req.body.spotifyId],
-          (err, results) => {
-            if (err) console.log(err);
-            res.send({ message: "success update" });
+          (err1, results) => {
+            if (err1) res.send({ error: err1 });
+            res.send({ message: "success" });
           }
         );
       } else {
@@ -22,10 +23,11 @@ router.post("/", (req, res) => {
           username: req.body.username,
           spotifyId: req.body.spotifyId,
           genres: req.body.genres,
+          matchuser: 0,
         };
         var query = "INSERT INTO users SET ?";
-        db.query(query, clientData, (err, results) => {
-          if (err) console.log(err);
+        db.query(query, clientData, (err2, results) => {
+          if (err2) res.send({ error: err2 });
           res.send({ message: "success" });
         });
       }
