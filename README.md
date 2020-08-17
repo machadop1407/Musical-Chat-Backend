@@ -43,7 +43,7 @@ The back-end is hosted on two different Heroku Dynos. One for the Musical Chat R
 
 ### Database:
 
-2 MySQL databases:
+2 tables:
 - Users: Stores everything about the user including username, spotifyId, favorite genre, currentmatch, and current socket room.
 - Messages: Stores all messages and info about them including the message itself, the id of the user that sent, and the id of the user that recived.
 
