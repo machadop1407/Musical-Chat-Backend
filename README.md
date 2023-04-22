@@ -36,7 +36,7 @@ The front-end repository is: https://github.com/machadop1407/musical-connection-
 
 ### Back End
 
-This repository if for the back-end.
+This repository is for the back-end.
 The back-end is hosted on two different Heroku Dynos. One for the Musical Chat Rest API, and the other for the Spotify Authentication.
 
 ## Design:
